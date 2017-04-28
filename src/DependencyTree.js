@@ -1,13 +1,10 @@
 const path = require('path')
 const deep = require('deep-aplus')(Promise)
 const pify = require('pify')
-const fs = require('fs')
-const stat = pify(fs.stat)
 const glob = pify(require('glob'))
 var {Package} = require('./Package')
 
 class DependencyTree {
-
   /**
    * @param {Package} prod package containing the production dependencies (and the files in the repository itself)
    * @param {Package} dev package containing the dev-dependencies
@@ -15,7 +12,6 @@ class DependencyTree {
    * @param {Package[]} all all packages in a node_modules directory, in a flat list.
    */
   constructor (rootPackage, prod, dev, manual, all) {
-
     this.rootPackage = rootPackage
     /**
      * @type {Package[]}
@@ -43,7 +39,12 @@ class DependencyTree {
     var cwd = path.dirname(packageJsonPath)
     var dependencies = glob('**/node_modules/*/package.json', {cwd})
       .then((dependencies) => {
-        return dependencies.map((packageJson) => Package.loadFrom(path.join(cwd, packageJson)))
+        return dependencies
+        // Only allow paths liks node_modules/pkg-name/node_modules/pkg-name/node_modules/pkg-name/package.json
+          .filter((packageJson) => {
+            return packageJson.match(/^(node_modules\/[^/]*\/)*package.json/)
+          })
+          .map((packageJson) => Package.loadFrom(path.join(cwd, packageJson)))
       })
 
     return deep({rootPackage, dependencies}).then(function ({rootPackage, dependencies}) {

@@ -1,3 +1,3 @@
-# Release notes for `analyze-size`
+# Release notes for `analyze-module-size`
 
 <a name="current-release"></a>

@@ -1,21 +1,24 @@
 {
-  "name": "analyze-size",
+  "name": "analyze-module-size",
   "version": "0.0.0",
-  "description": "Analyze the size of your npm-package",
+  "description": "Analyze the size of your module dependencies",
   "repository": {
     "type": "git",
-    "url": "git@github.com:nknapp/analyze-size.git"
+    "url": "git@github.com:nknapp/analyze-module-size.git"
   },
-  "homepage": "https://github.com/nknapp/analyze-size",
+  "preferGlobal": true,
+  "homepage": "https://github.com/nknapp/analyze-module-size",
   "author": {
     "name": "Nils Knappmeier",
     "email": "npm@knappi.org",
     "url": "https://github.com/nknapp"
   },
   "bugs": {
-    "url": "https://github.com/nknapp/analyze-size/issues"
+    "url": "https://github.com/nknapp/analyze-module-size/issues"
   },
-  "main": "src/index.js",
+  "bin": {
+    "analyze-module-size": "bin/analyze-module-size.js"
+  },
   "license": "MIT",
   "scripts": {
     "lint": "eslint --fix .",
@@ -28,12 +31,15 @@
     "version": "thoughtful changelog -o -a && npm run thought"
   },
   "dependencies": {
+    "archy": "^1.0.0",
+    "chalk": "^1.1.3",
     "deep-aplus": "^1.0.4",
     "glob": "^7.1.1",
     "pify": "^2.3.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
     "dirty-chai": "^1.2.2",
     "eslint": "^3.17.1",
     "eslint-config-standard": "^7.0.1",
@@ -43,6 +49,7 @@
     "eslint-plugin-standard": "^2.1.1",
     "husky": "^0.13.2",
     "istanbul": "^0.4.5",
+    "lodash.sortby": "^4.7.0",
     "mocha": "^3.2.0",
     "thoughtful-release": "^0.3.1",
     "trace-and-clarify-if-possible": "^1.0.0"

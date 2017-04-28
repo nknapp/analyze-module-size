@@ -81,7 +81,7 @@ class Package {
   static indexByLocation (packages) {
     const map = new Map(packages.map(p => [p.location(), p]))
     map.set('#USER', new Package())
-    map.set('#DEV', new Package())
+    map.set('#DEV:/', new Package())
     return map
   }
 
@@ -96,7 +96,7 @@ class Package {
     flatPackages.forEach((pkg) => pkg.connect(index))
     return {
       prod: index.get('/'),
-      dev: index.get('#DEV'),
+      dev: index.get('#DEV:/'),
       manual: index.get('#USER')
     }
   }

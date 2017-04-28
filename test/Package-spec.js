@@ -49,7 +49,7 @@ describe('The Package-class:', function () {
     it('should provide a #DEV key with a dummy package as root for dev-dependencies', function () {
       const pkg1 = dummy('one@1.0.0', '/one', ['/'])
       const map = Package.indexByLocation([pkg1])
-      expect(map.get('#DEV')).to.be.an.instanceof(Package)
+      expect(map.get('#DEV:/')).to.be.an.instanceof(Package)
     })
   })
 
@@ -101,7 +101,7 @@ describe('The Package-class:', function () {
       const base = dummy('base@1.0.0', undefined, undefined)
       const pkg1 = dummy('one@1.0.0', '/one', ['/'])
       const pkg2 = dummy('two@1.0.0', '/two', ['/one'])
-      const pkg3 = dummy('dev@1.0.0', '/dev', ['#DEV'])
+      const pkg3 = dummy('dev@1.0.0', '/dev', ['#DEV:/'])
       Package.connectAll(base, [pkg1, pkg2, pkg3])
       expect(base.totalDependencies()).to.equal(2)
     })
@@ -125,7 +125,7 @@ describe('The Package-class:', function () {
       const base = dummy('base@1.0.0', undefined, undefined)
       const pkg1 = dummy('one@1.0.0', '/one', ['/'], stats1)
       const pkg2 = dummy('two@1.0.0', '/two', ['/one'], stats2)
-      const pkg3 = dummy('dev@1.0.0', '/dev', ['#DEV'])
+      const pkg3 = dummy('dev@1.0.0', '/dev', ['#DEV:/'])
       Package.connectAll(base, [pkg1, pkg2, pkg3])
       expect(base.totalStats()).to.deep.equal(new PackageStats('/base@1.0.0', []).merge([stats1, stats2]))
     })
