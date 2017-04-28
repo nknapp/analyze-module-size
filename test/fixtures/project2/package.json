@@ -1,0 +1,8 @@
+{
+  "name": "project2",
+  "version": "1.0.0",
+  "description": "",
+  "_requiredBy": [ "/project1"],
+  "_id": "project1@1.0.0",
+  "_location": "/project2"
+}

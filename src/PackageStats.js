@@ -35,7 +35,7 @@ class PackageStats {
   }
 
   totalBlockSize () {
-    if (!this._totalBlocksize) {
+    if (!this._totalBlockSize) {
       this._totalBlockSize = this.files.reduce((result, file) => {
         return result + Math.ceil(file.stat.size / file.stat.blksize) * file.stat.blksize
       }, 0)

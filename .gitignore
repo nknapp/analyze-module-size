@@ -1,2 +1,3 @@
 node_modules
 *.iml
+!/test/fixtures/project1/node_modules/
