@@ -1,0 +1,11 @@
+{
+  "name": "moduleWithDeps",
+  "version": "1.0.0",
+  "dependencies": {
+    "dep1": "1.0.0",
+    "dep2": "1.0.0"
+  },
+  "devDependencies": {
+    "devdep1": "1.0.0"
+  }
+}

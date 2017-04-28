@@ -1,3 +1,5 @@
 node_modules
 *.iml
 !/test/fixtures/project1/node_modules/
+!/test/fixtures/moduleWithDeps/node_modules/
+!/test/fixtures/moduleWithDeps/node_modules/dep2/node_modules/
