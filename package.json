@@ -27,7 +27,11 @@
     "preversion": "thought --version || npm -g install thought",
     "version": "thoughtful changelog -o -a && npm run thought"
   },
-  "dependencies": {},
+  "dependencies": {
+    "deep-aplus": "^1.0.4",
+    "glob": "^7.1.1",
+    "pify": "^2.3.0"
+  },
   "devDependencies": {
     "chai": "^3.5.0",
     "dirty-chai": "^1.2.2",
