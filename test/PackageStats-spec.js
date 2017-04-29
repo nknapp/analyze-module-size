@@ -67,5 +67,5 @@ describe('The PackageStats-class', function () {
 })
 
 function sortedNameAndSize (files) {
-  return files.map((file) => file.file + ' - ' + file.stat.size).sort()
+  return files.map((file) => file.file + ' - ' + file.stat.size + ' ' + file.stat.blksize).sort()
 }
