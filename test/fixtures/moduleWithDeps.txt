@@ -1,4 +1,4 @@
-total-size: 56k
+size: 24k... with-dependencies: 56k
 ├─┬ dep1@1.0.0, 16k, 1 deps
 │ └── dep1a@1.0.0, 8k, 0 deps
 └─┬ dep2@1.0.0, 16k, 1 deps

@@ -68,7 +68,7 @@ class Package {
    */
   static loadFrom (packageJsonPath) {
     var json = readFile(packageJsonPath).then(JSON.parse)
-    var stats = PackageStats.loadFrom(packageJsonPath)
+    var stats = PackageStats.loadFrom(packageJsonPath, json)
     return deep({json, stats})
       .then(({json, stats}) => new Package(json, stats))
   }

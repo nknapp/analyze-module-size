@@ -3,7 +3,7 @@ const deep = require('deep-aplus')(Promise)
 const pify = require('pify')
 const fs = require('fs')
 const stat = pify(fs.stat)
-const glob = pify(require('glob'))
+const {validFiles} = require('./validFiles')
 
 /**
  * Computes and aggregates a number of statistics from a package directory
@@ -61,15 +61,20 @@ class PackageStats {
   }
 
   /**
+   * Create PackageStats from the location of a package.json file
    *
-   * @param packageJsonPath
-   * @return {Promise<PackageStats>}
+   * @param packageJsonPath path to the package.json file
+   * @param {Promise<object>|object=} packageJson the parse package.json file,
+   *    either directly or as Promise
+   * @return {Promise<PackageStats>} a promise for the PackageStats object
    */
-  static loadFrom (packageJsonPath) {
-    var directory = path.dirname(packageJsonPath)
-    return glob('**', {dot: true, cwd: directory, mark: true, ignore: 'node_modules/**'})
-    // Add the directory itself
-      .then(files => ['./'].concat(files))
+  static loadFrom (packageJsonPath, packageJson = {}) {
+    const directory = path.dirname(packageJsonPath)
+
+    return Promise.resolve(packageJson)
+      .then((packageJson) => validFiles(directory, packageJson))
+      // Add the directory itself
+      .then(files => files.map((file) => path.normalize(file)))
       // Gather stats
       .then(files => files.map(file => ({file: path.join(directory, file), stat: stat(path.join(directory, file))})))
       // Wait for promises

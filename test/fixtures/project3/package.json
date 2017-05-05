@@ -1,0 +1,9 @@
+{
+  "name": "project3",
+  "version": "1.0.0",
+  "description": "",
+  "_requiredBy": [ "/"],
+  "_id": "project3@1.0.0",
+  "_location": "/project3",
+  "files": ["dir/", "file3.txt"]
+}

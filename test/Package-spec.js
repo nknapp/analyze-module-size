@@ -24,6 +24,22 @@ describe('The Package-class:', function () {
           ])
         })
     })
+
+    it('should respect the files property in the package.json', function () {
+      return Package.loadFrom('test/fixtures/project3/package.json')
+        .then((pkg) => {
+          expect(pkg.packageJson).to.deep.equal(require('./fixtures/project3/package.json'))
+          expect(pkg.stats.files.map((f) => f.file).sort()).to.deep.equal([
+            'test/fixtures/project3/',
+            'test/fixtures/project3/LICENSE.md',
+            'test/fixtures/project3/README',
+            'test/fixtures/project3/dir/',
+            'test/fixtures/project3/dir/file2.txt',
+            'test/fixtures/project3/file3.txt',
+            'test/fixtures/project3/package.json'
+          ])
+        })
+    })
   })
 
   it('should contain "/" as location by default (because this is the base package.json then', function () {

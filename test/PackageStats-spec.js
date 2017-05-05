@@ -23,6 +23,22 @@ describe('The PackageStats-class', function () {
       })
   })
 
+  it('should filter files via the provided in files-property', function () {
+    return PackageStats.loadFrom('test/fixtures/project3/package.json', {files: ['dir/', 'file3.txt']})
+      .then((packageStats) => {
+        expect(packageStats.directory).to.equal('test/fixtures/project3')
+        expect(sortedNameAndSize(packageStats.files)).to.deep.equal([
+          f('test/fixtures/project3/'),
+          f('test/fixtures/project3/LICENSE.md'),
+          f('test/fixtures/project3/README'),
+          f('test/fixtures/project3/dir/'),
+          f('test/fixtures/project3/dir/file2.txt'),
+          f('test/fixtures/project3/file3.txt'),
+          f('test/fixtures/project3/package.json')
+        ])
+      })
+  })
+
   it('should compute the byte-size of all the files in a directory', function () {
     return PackageStats.loadFrom('test/fixtures/project1/package.json')
       .then((packageStats) => {
