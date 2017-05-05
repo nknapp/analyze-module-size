@@ -18,4 +18,12 @@ describe('The index-function (module main function):', function () {
         expect(result).to.equal(fs.readFileSync('test/fixtures/moduleWithDeps.txt', 'utf-8'))
       })
   })
+
+  it('should cut the display at a specific depth if specified', function () {
+    return analyze('test/fixtures/moduleWithDeps', {depth: 1})
+      .then((result) => {
+        expect(result).to.equal(fs.readFileSync('test/fixtures/moduleWithDeps-depth1.txt', 'utf-8'))
+      })
+  })
+
 })
