@@ -7,6 +7,8 @@ const {DependencyTree} = require('../src/DependencyTree')
 
 describe('The DependencyTree-class:', function () {
   describe('The loadFrom static-method', function () {
+    this.timeout(5000)
+
     it('should create a DependencyTree with production dependencies', function () {
       return DependencyTree.loadFrom('test/fixtures/moduleWithDeps/package.json')
         .then((tree) => expect(visit(tree.prod)).to.deep.equal([

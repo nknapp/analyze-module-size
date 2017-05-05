@@ -79,6 +79,16 @@ describe('validFiles:', function () {
         ])
     })
 
+    it('should include .travis.yml and .npmignore, if they are not explicitly excluded', function () {
+      mockfs({
+        '.travis.yml': '', '.npmignore': ''
+      })
+      return expect(validFiles('.', {}, []).then(files => files.sort()))
+        .to.eventually.deep.equal([
+          '.npmignore', '.travis.yml', '/'
+        ])
+    })
+
     it('should not even include .git files if they are in the files property', function () {
       mockfs({
         'package.json': '', '.git/a': '', '.git/b': '', 'README.md': '', 'LICENSE.md': ''

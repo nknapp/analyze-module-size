@@ -56,7 +56,7 @@ function validFiles (cwd, packageJson, npmIgnore = []) {
   }
 
   return deep({
-    withCase: globby(globs, {nocase: false, ignore: ignored, cwd, mark: true}),
+    withCase: globby(globs, {nocase: false, ignore: ignored, cwd, mark: true, dot: true}),
     ignoreCase: globby(alwaysIncludedIgnoreCase, {nocase: true, ignore: ignored, cwd, mark: true})
   })
   // Join
