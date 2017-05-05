@@ -1,13 +1,16 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.1.1 (Fri, 05 May 2017 20:02:52 GMT)
+
+* [f751bd6](https://github.com/nknapp/analyze-module-size/commit/f751bd6) Add test for "depth"-parameter - Nils Knappmeier
+* [73788b7](https://github.com/nknapp/analyze-module-size/commit/73788b7) Include .dot-files in the statistics - Nils Knappmeier
+
 # Version 1.1.0 (Fri, 05 May 2017 19:44:33 GMT)
 
 * [4773afa](https://github.com/nknapp/analyze-module-size/commit/4773afa) Use files-property in package.json to be more precise about the size... - Nils Knappmeier
 * [184d2d6](https://github.com/nknapp/analyze-module-size/commit/184d2d6) Fix tests on TravisCI (#1) - Nils Knappmeier
 * [beb3e84](https://github.com/nknapp/analyze-module-size/commit/beb3e84) Added missing file for test - Nils Knappmeier
-
-
 
 # Version 1.0.0 (Fri, 28 Apr 2017 21:46:54 GMT)
 
