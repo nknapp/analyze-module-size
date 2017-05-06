@@ -3,6 +3,7 @@ const pify = require('pify')
 const fs = require('fs')
 const readFile = pify(fs.readFile)
 const {PackageStats} = require('./PackageStats')
+const debug = require('debug')('analyze-module-size:Package')
 
 /**
  * Computes and aggregates a number of statistics from a package directory
@@ -67,10 +68,15 @@ class Package {
    * @return {Promise<PackageStats>}
    */
   static loadFrom (packageJsonPath) {
+    debug('Loading package', packageJsonPath)
     var json = readFile(packageJsonPath).then(JSON.parse)
     var stats = PackageStats.loadFrom(packageJsonPath, json)
     return deep({json, stats})
       .then(({json, stats}) => new Package(json, stats))
+      .then(result => {
+        debug('Done loading package', packageJsonPath)
+        return result
+      })
   }
 
   /**
@@ -90,10 +96,12 @@ class Package {
    * @param {...(Package|Package[])} packages
    */
   static connectAll (...packages) {
+    debug('Connect all')
     // flatten
     const flatPackages = Array.prototype.concat.apply([], packages)
     const index = Package.indexByLocation(flatPackages)
     flatPackages.forEach((pkg) => pkg.connect(index))
+    debug('Done connect all')
     return {
       prod: index.get('/'),
       dev: index.get('#DEV:/'),

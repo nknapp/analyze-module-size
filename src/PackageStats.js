@@ -76,10 +76,15 @@ class PackageStats {
       // Add the directory itself
       .then(files => files.map((file) => path.normalize(file)))
       // Gather stats
-      .then(files => files.map(file => ({file: path.join(directory, file), stat: stat(path.join(directory, file))})))
+      .then(files => files.map(file => {
+        return {
+          file: path.join(directory, file),
+          stat: stat(path.join(directory, file))
+        }
+      }))
       // Wait for promises
       .then(deep)
-      // creaate PackageStats-object
+      // create PackageStats-object
       .then((files) => new PackageStats(directory, files))
   }
 }

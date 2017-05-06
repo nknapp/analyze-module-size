@@ -17,13 +17,16 @@ const path = require('path')
  * @param {number} options.depth The number of levels to display in the tree-view
  */
 function analyze (cwd, options) {
-  return DependencyTree.loadFrom(path.join(cwd, 'package.json'))
-    .then(function (tree) {
+  const {promise, progress} = DependencyTree.loadFrom(path.join(cwd, 'package.json'))
+  return {
+    progress,
+    promise: promise.then(function (tree) {
       return archy({
         label: `size: ${tree.rootPackage.stats.totalBlockSize() / 1024}k... with-dependencies: ${tree.rootPackage.totalStats().totalBlockSize() / 1024}k`,
         nodes: toArchy(tree.prod, options && options.depth)
       })
     })
+  }
 }
 
 /**
