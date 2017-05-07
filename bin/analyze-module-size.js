@@ -7,6 +7,8 @@ require('graceful-fs').gracefulify(require('fs'))
 
 program
   .version(require('../package').version)
+  .description('Analyzes the size of the package in the current directories, ' +
+    'including the size of (production) dependencies')
   .usage('[options]')
   .option('-d, --depth <levels>', 'Show only dependencies up to a given depth of recursion')
   .parse(process.argv)

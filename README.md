@@ -6,6 +6,16 @@
 
 > Analyze the size of your module dependencies
 
+`analyze-module-size` shows you, why your package is so large. The reason for the size
+of your package often lies in the dependencies you are using. For example [request](https://npmjs.com/package/request)@2.81.0` 
+is 7080kb large (including its 53 dependencies) and it comes with a lot of libraries that you may not even need. If you are aware of that, you may choose to use a different library
+(e.g. [popsicle](https://npmjs.com/package/popsicle)).
+
+The module [cost-of-modules](https://npmjs.com/package/cost-of-modules) does the same, but it only shows one level of the 
+dependency tree. It was an inspiration, but I took no code from it.
+
+Finally, this program still has a lot of opportunities for enhancement. If you have
+wishes, ideas or questions, please open an issue.
 
 # Installation
 
@@ -19,7 +29,7 @@ Run `analyze-module-size` in your project directory. The output will be somethin
 (Note that the displayed sizes are accumulated from the each module an its dependencies):
 
 ```
-size: 60k... with-dependencies: 1112k
+size: 64k... with-dependencies: 1116k
 ├─┬ globby@6.1.0, 484k, 17 deps
 │ ├─┬ glob@7.1.1, 340k, 10 deps
 │ │ ├─┬ minimatch@3.0.4, 132k, 3 deps
@@ -80,6 +90,8 @@ size: 60k... with-dependencies: 1112k
 
 ```
 Usage: analyze-module-size [options]
+
+  Analyzes the size of the package in the current directories, including the size of (production) dependencies
 
   Options:
 

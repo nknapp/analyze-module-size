@@ -1,0 +1,10 @@
+`{{package.name}}` shows you, why your package is so large. The reason for the size
+of your package often lies in the dependencies you are using. For example {{npm 'request'}}@2.81.0` 
+is 7080kb large (including its 53 dependencies) and it comes with a lot of libraries that you may not even need. If you are aware of that, you may choose to use a different library
+(e.g. {{npm 'popsicle'}}).
+
+The module {{npm 'cost-of-modules'}} does the same, but it only shows one level of the 
+dependency tree. It was an inspiration, but I took no code from it.
+
+Finally, this program still has a lot of opportunities for enhancement. If you have
+wishes, ideas or questions, please open an issue.
