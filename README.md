@@ -19,8 +19,7 @@ Run `analyze-module-size` in your project directory. The output will be somethin
 (Note that the displayed sizes are accumulated from the each module an its dependencies):
 
 ```
-size: 60k... with-dependencies: 1720k
-├── bluebird@3.5.0, 716k, 0 deps
+size: 60k... with-dependencies: 1112k
 ├─┬ globby@6.1.0, 484k, 17 deps
 │ ├─┬ glob@7.1.1, 340k, 10 deps
 │ │ ├─┬ minimatch@3.0.3, 132k, 3 deps
@@ -66,13 +65,29 @@ size: 60k... with-dependencies: 1720k
 │ └── supports-color@2.0.0, 20k, 0 deps
 ├─┬ debug@2.6.6, 128k, 1 deps
 │ └── ms@0.7.3, 20k, 0 deps
+├─┬ commander@2.9.0, 88k, 1 deps
+│ └── graceful-readlink@1.0.1, 28k, 0 deps
 ├── archy@1.0.0, 52k, 0 deps
 ├── graceful-fs@4.1.11, 48k, 0 deps
 ├─┬ deep-aplus@1.0.4, 44k, 1 deps
 │ └── lodash.isplainobject@4.0.6, 20k, 0 deps
 ├── progress@2.0.0, 44k, 0 deps
+├── p-map@1.1.1, 20k, 0 deps
 └── pify@2.3.0, 20k, 0 deps
 ```
+
+## CLI options
+
+```
+Usage: analyze-module-size [options]
+
+  Options:
+
+    -h, --help            output usage information
+    -V, --version         output the version number
+    -d, --depth <levels>  Show only dependencies up to a given depth of recursion
+```
+
 
 
 # License

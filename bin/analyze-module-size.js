@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 
-var {analyze} = require('../src/index')
+const {analyze} = require('../src/index')
+const {ProgressHandler} = require('../src/progress')
+const program = require('commander')
+require('graceful-fs').gracefulify(require('fs'))
 
-var realFs = require('fs')
-var gracefulFs = require('graceful-fs')
-var {ProgressHandler} = require('../src/progress')
+program
+  .version(require('../package').version)
+  .usage('[options]')
+  .option('-d, --depth <levels>', 'Show only dependencies up to a given depth of recursion')
+  .parse(process.argv)
 
-gracefulFs.gracefulify(realFs)
-
-analyze(process.cwd(), {progress: new ProgressHandler(process.stderr), depth: process.argv[2]})
+analyze(process.cwd(), {progress: new ProgressHandler(process.stderr), depth: program.depth})
   .then(
     (output) => {
       return process.stdout.write(output)
