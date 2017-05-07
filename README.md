@@ -19,7 +19,7 @@ Run `analyze-module-size` in your project directory. The output will be somethin
 (Note that the displayed sizes are accumulated from the each module an its dependencies):
 
 ```
-size: 64k... with-dependencies: 1724k
+size: 60k... with-dependencies: 1720k
 ├── bluebird@3.5.0, 716k, 0 deps
 ├─┬ globby@6.1.0, 484k, 20 deps
 │ ├─┬ glob@7.1.1, 340k, 13 deps

@@ -1,6 +1,10 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.2.1 (Sun, 07 May 2017 15:29:43 GMT)
+
+* [be3a3e4](https://github.com/nknapp/analyze-module-size/commit/be3a3e4) Progress-Bar refactoring - Nils Knappmeier
+
 # Version 1.2.0 (Sat, 06 May 2017 21:51:50 GMT)
 
 * [bc3c191](https://github.com/nknapp/analyze-module-size/commit/bc3c191) Add progress-bar when loading dependencies - Nils Knappmeier
