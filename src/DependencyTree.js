@@ -1,7 +1,7 @@
 const path = require('path')
 const {findPackages} = require('./find-packages')
 var {Package} = require('./Package')
-var Promise = require('bluebird')
+var pmap = require('p-map')
 const deep = require('deep-aplus')(Promise)
 const {NullProgressHandler} = require('./progress')
 
@@ -46,7 +46,7 @@ class DependencyTree {
         // Load all dependency with a concurrency level of 4
         // Empiric tests show that it is not really slower than running fully parallel,
         // but the progress bar behaves much more consistent.
-        return Promise.map(
+        return pmap(
           dependencies,
           (packageJson) => {
             return Package.loadFrom(path.join(cwd, packageJson))
