@@ -1,6 +1,10 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.3.1 (Sun, 07 May 2017 20:47:23 GMT)
+
+* [7584946](https://github.com/nknapp/analyze-module-size/commit/7584946) More documentation - Nils Knappmeier
+
 # Version 1.3.0 (Sun, 07 May 2017 20:05:50 GMT)
 
 * [59b48f4](https://github.com/nknapp/analyze-module-size/commit/59b48f4) Reduce package size by using "p-map" rather than "bluebird" - Nils Knappmeier
