@@ -21,13 +21,13 @@ Run `analyze-module-size` in your project directory. The output will be somethin
 ```
 size: 60k... with-dependencies: 1720k
 ├── bluebird@3.5.0, 716k, 0 deps
-├─┬ globby@6.1.0, 484k, 20 deps
-│ ├─┬ glob@7.1.1, 340k, 13 deps
+├─┬ globby@6.1.0, 484k, 17 deps
+│ ├─┬ glob@7.1.1, 340k, 10 deps
 │ │ ├─┬ minimatch@3.0.3, 132k, 3 deps
 │ │ │ └─┬ brace-expansion@1.1.7, 84k, 2 deps
 │ │ │   ├── concat-map@0.0.1, 40k, 0 deps
 │ │ │   └── balanced-match@0.4.2, 24k, 0 deps
-│ │ ├─┬ inflight@1.0.6, 60k, 3 deps
+│ │ ├─┬ inflight@1.0.6, 60k, 2 deps
 │ │ │ ├─┬ once@1.4.0, 40k, 1 deps
 │ │ │ │ └── wrappy@1.0.2, 20k, 0 deps
 │ │ │ └── wrappy@1.0.2, 20k, 0 deps
@@ -42,12 +42,12 @@ size: 60k... with-dependencies: 1720k
 │ │ └── array-uniq@1.0.3, 20k, 0 deps
 │ ├── object-assign@4.1.1, 20k, 0 deps
 │ └── pify@2.3.0, 20k, 0 deps
-├─┬ glob@7.1.1, 340k, 13 deps
+├─┬ glob@7.1.1, 340k, 10 deps
 │ ├─┬ minimatch@3.0.3, 132k, 3 deps
 │ │ └─┬ brace-expansion@1.1.7, 84k, 2 deps
 │ │   ├── concat-map@0.0.1, 40k, 0 deps
 │ │   └── balanced-match@0.4.2, 24k, 0 deps
-│ ├─┬ inflight@1.0.6, 60k, 3 deps
+│ ├─┬ inflight@1.0.6, 60k, 2 deps
 │ │ ├─┬ once@1.4.0, 40k, 1 deps
 │ │ │ └── wrappy@1.0.2, 20k, 0 deps
 │ │ └── wrappy@1.0.2, 20k, 0 deps
@@ -56,7 +56,7 @@ size: 60k... with-dependencies: 1720k
 │ ├── fs.realpath@1.0.0, 32k, 0 deps
 │ ├── inherits@2.0.3, 24k, 0 deps
 │ └── path-is-absolute@1.0.1, 20k, 0 deps
-├─┬ chalk@1.1.3, 144k, 7 deps
+├─┬ chalk@1.1.3, 144k, 6 deps
 │ ├─┬ has-ansi@2.0.0, 40k, 1 deps
 │ │ └── ansi-regex@2.1.1, 20k, 0 deps
 │ ├─┬ strip-ansi@3.0.1, 40k, 1 deps

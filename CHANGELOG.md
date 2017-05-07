@@ -1,6 +1,10 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.2.2 (Sun, 07 May 2017 19:39:45 GMT)
+
+* [cc9677b](https://github.com/nknapp/analyze-module-size/commit/cc9677b) Check for cycles when traversing the dependency tree - Nils Knappmeier
+
 # Version 1.2.1 (Sun, 07 May 2017 15:29:43 GMT)
 
 * [be3a3e4](https://github.com/nknapp/analyze-module-size/commit/be3a3e4) Progress-Bar refactoring - Nils Knappmeier
