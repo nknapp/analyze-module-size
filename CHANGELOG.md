@@ -1,6 +1,11 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.3.0 (Sun, 07 May 2017 20:05:50 GMT)
+
+* [59b48f4](https://github.com/nknapp/analyze-module-size/commit/59b48f4) Reduce package size by using "p-map" rather than "bluebird" - Nils Knappmeier
+* [f820acb](https://github.com/nknapp/analyze-module-size/commit/f820acb) New option "-d, depth <levels>" to cut off the dependency tree display - Nils Knappmeier
+
 # Version 1.2.2 (Sun, 07 May 2017 19:39:45 GMT)
 
 * [cc9677b](https://github.com/nknapp/analyze-module-size/commit/cc9677b) Check for cycles when traversing the dependency tree - Nils Knappmeier

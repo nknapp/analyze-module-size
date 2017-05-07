@@ -22,7 +22,7 @@ Run `analyze-module-size` in your project directory. The output will be somethin
 size: 60k... with-dependencies: 1112k
 ├─┬ globby@6.1.0, 484k, 17 deps
 │ ├─┬ glob@7.1.1, 340k, 10 deps
-│ │ ├─┬ minimatch@3.0.3, 132k, 3 deps
+│ │ ├─┬ minimatch@3.0.4, 132k, 3 deps
 │ │ │ └─┬ brace-expansion@1.1.7, 84k, 2 deps
 │ │ │   ├── concat-map@0.0.1, 40k, 0 deps
 │ │ │   └── balanced-match@0.4.2, 24k, 0 deps
@@ -42,7 +42,7 @@ size: 60k... with-dependencies: 1112k
 │ ├── object-assign@4.1.1, 20k, 0 deps
 │ └── pify@2.3.0, 20k, 0 deps
 ├─┬ glob@7.1.1, 340k, 10 deps
-│ ├─┬ minimatch@3.0.3, 132k, 3 deps
+│ ├─┬ minimatch@3.0.4, 132k, 3 deps
 │ │ └─┬ brace-expansion@1.1.7, 84k, 2 deps
 │ │   ├── concat-map@0.0.1, 40k, 0 deps
 │ │   └── balanced-match@0.4.2, 24k, 0 deps
