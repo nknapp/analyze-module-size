@@ -12,7 +12,7 @@ const debug = require('debug')('analyze-module-size:Package')
  */
 class Package {
   /**
-   * Create a new Packageobject
+   * Create a new Package object
    * @param {object} packageJson the parsed package.json file
    * @param {PackageStats} stats the statistics object
    */
@@ -49,13 +49,23 @@ class Package {
   }
 
   totalStats () {
-    return this.stats.merge(this.dependencies.map((dep) => {
-      return dep.totalStats()
-    }))
+    return this.stats.merge(Array.from(this.collectDependencies()).map((dep) => dep.stats))
   }
 
   totalDependencies () {
-    return this.dependencies.reduce((sum, dep) => sum + dep.totalDependencies() + 1, 0)
+    return this.collectDependencies().size
+  }
+
+  /**
+   * Reduce-function that not reduces the direct and recursive dependencies
+   */
+  collectDependencies (collector = new Set()) {
+    this.dependencies.forEach(function (dep) {
+      if (collector.has(dep)) return
+      collector.add(dep)
+      dep.collectDependencies(collector)
+    })
+    return collector
   }
 
   location () {

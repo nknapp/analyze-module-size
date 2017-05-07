@@ -121,6 +121,15 @@ describe('The Package-class:', function () {
       Package.connectAll(base, [pkg1, pkg2, pkg3])
       expect(base.totalDependencies()).to.equal(2)
     })
+
+    it('should ignore cyclic dependencies', function () {
+      const base = dummy('base@1.0.0', undefined, undefined)
+      const pkg1 = dummy('one@1.0.0', '/one', ['/', '/three'])
+      const pkg2 = dummy('two@1.0.0', '/two', ['/one'])
+      const pkg3 = dummy('dev@1.0.0', '/three', ['/two'])
+      Package.connectAll(base, [pkg1, pkg2, pkg3])
+      expect(base.totalDependencies()).to.equal(3)
+    })
   })
 
   describe('The #totalStats method', function () {
@@ -143,6 +152,14 @@ describe('The Package-class:', function () {
       const pkg2 = dummy('two@1.0.0', '/two', ['/one'], stats2)
       const pkg3 = dummy('dev@1.0.0', '/dev', ['#DEV:/'])
       Package.connectAll(base, [pkg1, pkg2, pkg3])
+      expect(base.totalStats()).to.deep.equal(new PackageStats('/base@1.0.0', []).merge([stats1, stats2]))
+    })
+
+    it('should stop traversing at dependency cycles', function () {
+      const base = dummy('base@1.0.0', undefined, undefined)
+      const pkg1 = dummy('one@1.0.0', '/one', ['/', '/two'], stats1)
+      const pkg2 = dummy('two@1.0.0', '/two', ['/one'], stats2)
+      Package.connectAll(base, [pkg1, pkg2])
       expect(base.totalStats()).to.deep.equal(new PackageStats('/base@1.0.0', []).merge([stats1, stats2]))
     })
   })
