@@ -9,24 +9,23 @@ const sortby = require('lodash.sortby')
 const archy = require('archy')
 const chalk = require('chalk')
 const path = require('path')
+const {NullProgressHandler} = require('./progress')
 
 /**
  *
  * @param cwd
  * @param options
  * @param {number} options.depth The number of levels to display in the tree-view
+ * @param {ProgressHandler} options.progress
  */
-function analyze (cwd, options) {
-  const {promise, progress} = DependencyTree.loadFrom(path.join(cwd, 'package.json'))
-  return {
-    progress,
-    promise: promise.then(function (tree) {
+function analyze (cwd, options = {}) {
+  return DependencyTree.loadFrom(path.join(cwd, 'package.json'), options.progress || new NullProgressHandler())
+    .then(function (tree) {
       return archy({
         label: `size: ${tree.rootPackage.stats.totalBlockSize() / 1024}k... with-dependencies: ${tree.rootPackage.totalStats().totalBlockSize() / 1024}k`,
-        nodes: toArchy(tree.prod, options && options.depth)
+        nodes: toArchy(tree.prod, options.depth)
       })
     })
-  }
 }
 
 /**

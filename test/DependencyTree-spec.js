@@ -11,7 +11,6 @@ describe('The DependencyTree-class:', function () {
 
     it('should create a DependencyTree with production dependencies', function () {
       return DependencyTree.loadFrom('test/fixtures/moduleWithDeps/package.json')
-        .promise
         .then((tree) => expect(visit(tree.prod)).to.deep.equal([
           {
             '_id': 'dep1@1.0.0',
@@ -40,7 +39,6 @@ describe('The DependencyTree-class:', function () {
 
     it('should create a DependencyTree with dev dependencies', function () {
       return DependencyTree.loadFrom('test/fixtures/moduleWithDeps/package.json')
-        .promise
         .then((tree) => expect(visit(tree.dev)).to.deep.equal([
           {
             '_id': 'devdep1@1.0.0',
@@ -58,7 +56,6 @@ describe('The DependencyTree-class:', function () {
 
     it('should create a DependencyTree with manually installed dependencies', function () {
       return DependencyTree.loadFrom('test/fixtures/moduleWithDeps/package.json')
-        .promise
         .then((tree) => expect(visit(tree.manual)).to.deep.equal([
           {
             '_id': 'manualdep1@1.0.0',
