@@ -1,6 +1,11 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.3.2 (Mon, 08 May 2017 10:55:26 GMT)
+
+* [e4f8fb2](https://github.com/nknapp/analyze-module-size/commit/e4f8fb2) Sort tree-nodes of the same size by name - Nils Knappmeier
+* [cefa825](https://github.com/nknapp/analyze-module-size/commit/cefa825) Support for scoped packages - Nils Knappmeier
+
 # Version 1.3.1 (Sun, 07 May 2017 20:47:23 GMT)
 
 * [7584946](https://github.com/nknapp/analyze-module-size/commit/7584946) More documentation - Nils Knappmeier
