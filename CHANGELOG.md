@@ -1,6 +1,10 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.3.3 (Mon, 08 May 2017 11:00:26 GMT)
+
+* [92c0493](https://github.com/nknapp/analyze-module-size/commit/92c0493) Revert: Sort tree-nodes of the same size by name - Nils Knappmeier
+
 # Version 1.3.2 (Mon, 08 May 2017 10:55:26 GMT)
 
 * [e4f8fb2](https://github.com/nknapp/analyze-module-size/commit/e4f8fb2) Sort tree-nodes of the same size by name - Nils Knappmeier
