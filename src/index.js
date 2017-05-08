@@ -45,7 +45,7 @@ function toArchy (pkgs, depth) {
     }
   })
   return sortby(result, (node) => {
-    return -node.size || node._id
+    return -node.size
   })
 }
 
