@@ -13,6 +13,11 @@ describe('The DependencyTree-class:', function () {
       return DependencyTree.loadFrom('test/fixtures/moduleWithDeps/package.json')
         .then((tree) => expect(visit(tree.prod)).to.deep.equal([
           {
+            '_id': '@scope/pkg@1.0.0',
+            '_size': 8192,
+            'deps': []
+          },
+          {
             '_id': 'dep1@1.0.0',
             '_size': 16384,
             'deps': [

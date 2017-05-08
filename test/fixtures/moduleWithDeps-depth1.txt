@@ -1,3 +1,4 @@
-size: 24k... with-dependencies: 56k
+size: 24k... with-dependencies: 64k
 ├── dep1@1.0.0, 16k, 1 deps
-└── dep2@1.0.0, 16k, 1 deps
+├── dep2@1.0.0, 16k, 1 deps
+└── @scope/pkg@1.0.0, 8k, 0 deps
