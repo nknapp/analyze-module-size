@@ -39,6 +39,7 @@
     "glob": "^7.1.1",
     "globby": "^6.1.0",
     "graceful-fs": "^4.1.11",
+    "lodash.sortby": "^4.7.0",
     "p-map": "^1.1.1",
     "pify": "^2.3.0",
     "progress": "^2.0.0"
@@ -56,7 +57,6 @@
     "eslint-plugin-standard": "^2.1.1",
     "husky": "^0.13.2",
     "istanbul": "^0.4.5",
-    "lodash.sortby": "^4.7.0",
     "mocha": "^3.2.0",
     "mock-fs": "^4.3.0",
     "thoughtful-release": "^0.3.1",
