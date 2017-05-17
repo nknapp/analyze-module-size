@@ -1,6 +1,11 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.3.4 (Wed, 17 May 2017 22:04:31 GMT)
+
+* [60dc68f](https://github.com/nknapp/analyze-module-size/commit/60dc68f) Make lodash.sortby a regular dependency - Nils Knappmeier
+
+
 # Version 1.3.3 (Mon, 08 May 2017 11:00:26 GMT)
 
 * [92c0493](https://github.com/nknapp/analyze-module-size/commit/92c0493) Revert: Sort tree-nodes of the same size by name - Nils Knappmeier

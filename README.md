@@ -1,9 +1,6 @@
 # analyze-module-size 
 
-[![NPM version](https://badge.fury.io/js/analyze-module-size.svg)](http://badge.fury.io/js/analyze-module-size)
-[![Travis Build Status](https://travis-ci.org/nknapp/analyze-module-size.svg?branch=master)](https://travis-ci.org/nknapp/analyze-module-size)
-[![Coverage Status](https://img.shields.io/coveralls/nknapp/analyze-module-size.svg)](https://coveralls.io/r/nknapp/analyze-module-size)
-
+[![NPM version](https://badge.fury.io/js/analyze-module-size.svg)](http://badge.fury.io/js/analyze-module-size)[![Travis Build Status](https://travis-ci.org/nknapp/analyze-module-size.svg?branch=master)](https://travis-ci.org/nknapp/analyze-module-size)[![Coverage Status](https://img.shields.io/coveralls/nknapp/analyze-module-size.svg)](https://coveralls.io/r/nknapp/analyze-module-size)
 > Analyze the size of your module dependencies
 
 `analyze-module-size` shows you, why your package is so large. The reason for the size
@@ -29,7 +26,7 @@ Run `analyze-module-size` in your project directory. The output will be somethin
 (Note that the displayed sizes are accumulated from the each module an its dependencies):
 
 ```
-size: 64k... with-dependencies: 1116k
+size: 64k... with-dependencies: 1204k
 ├─┬ globby@6.1.0, 484k, 17 deps
 │ ├─┬ glob@7.1.1, 340k, 10 deps
 │ │ ├─┬ minimatch@3.0.4, 132k, 3 deps
@@ -73,10 +70,11 @@ size: 64k... with-dependencies: 1116k
 │ ├── ansi-styles@2.2.1, 20k, 0 deps
 │ ├── escape-string-regexp@1.0.5, 20k, 0 deps
 │ └── supports-color@2.0.0, 20k, 0 deps
-├─┬ debug@2.6.6, 128k, 1 deps
-│ └── ms@0.7.3, 20k, 0 deps
+├─┬ debug@2.6.7, 128k, 1 deps
+│ └── ms@2.0.0, 20k, 0 deps
 ├─┬ commander@2.9.0, 88k, 1 deps
 │ └── graceful-readlink@1.0.1, 28k, 0 deps
+├── lodash.sortby@4.7.0, 88k, 0 deps
 ├── archy@1.0.0, 52k, 0 deps
 ├── graceful-fs@4.1.11, 48k, 0 deps
 ├─┬ deep-aplus@1.0.4, 44k, 1 deps
