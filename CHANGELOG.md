@@ -1,6 +1,10 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.3.5 (Thu, 05 Apr 2018 19:54:26 GMT)
+
+* [282d1fa](https://github.com/nknapp/analyze-module-size/commit/282d1fa) fix: handle NaN-blocksize on windows file-system (#5) - Nils Knappmeier
+
 # Version 1.3.4 (Wed, 17 May 2017 22:04:31 GMT)
 
 * [60dc68f](https://github.com/nknapp/analyze-module-size/commit/60dc68f) Make lodash.sortby a regular dependency - Nils Knappmeier

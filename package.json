@@ -1,6 +1,6 @@
 {
   "name": "analyze-module-size",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "Analyze the size of your module dependencies",
   "repository": {
     "type": "git",
