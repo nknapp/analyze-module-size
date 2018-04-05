@@ -37,7 +37,8 @@ class PackageStats {
   totalBlockSize () {
     if (!this._totalBlockSize) {
       this._totalBlockSize = this.files.reduce((result, file) => {
-        return result + Math.ceil(file.stat.size / file.stat.blksize) * file.stat.blksize
+        const blksize = file.stat.blksize || 4096 // On NTFS, the blksize is NaN (#5). In order to get a result at all, we assume 4kb for NaN and 0.
+        return result + Math.ceil(file.stat.size / blksize) * blksize
       }, 0)
     }
     return this._totalBlockSize

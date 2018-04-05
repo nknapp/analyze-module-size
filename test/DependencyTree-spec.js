@@ -14,27 +14,22 @@ describe('The DependencyTree-class:', function () {
         .then((tree) => expect(visit(tree.prod)).to.deep.equal([
           {
             '_id': '@scope/pkg@1.0.0',
-            '_size': 8192,
             'deps': []
           },
           {
             '_id': 'dep1@1.0.0',
-            '_size': 16384,
             'deps': [
               {
                 '_id': 'dep1a@1.0.0',
-                '_size': 8192,
                 'deps': []
               }
             ]
           },
           {
             '_id': 'dep2@1.0.0',
-            '_size': 16384,
             'deps': [
               {
                 '_id': 'dep2a@1.0.0',
-                '_size': 8192,
                 'deps': []
               }
             ]
@@ -47,11 +42,9 @@ describe('The DependencyTree-class:', function () {
         .then((tree) => expect(visit(tree.dev)).to.deep.equal([
           {
             '_id': 'devdep1@1.0.0',
-            '_size': 16384,
             'deps': [
               {
                 '_id': 'dep1a@1.0.0',
-                '_size': 8192,
                 'deps': []
               }
             ]
@@ -64,7 +57,6 @@ describe('The DependencyTree-class:', function () {
         .then((tree) => expect(visit(tree.manual)).to.deep.equal([
           {
             '_id': 'manualdep1@1.0.0',
-            '_size': 8192,
             'deps': []
           }
         ]))
@@ -76,7 +68,6 @@ function visit (pkgs) {
   return pkgs.map((pkg) => {
     return {
       _id: pkg.packageJson._id,
-      _size: pkg.totalStats().totalBlockSize(),
       deps: visit(pkg.dependencies)
     }
   })

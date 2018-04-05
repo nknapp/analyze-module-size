@@ -6,6 +6,7 @@ const expect = chai.expect
 const {Package} = require('../src/Package')
 const {PackageStats} = require('../src/PackageStats')
 const deep = require('deep-aplus')(Promise)
+const path = require('path')
 
 describe('The Package-class:', function () {
   describe('The loadFrom static-method', function () {
@@ -14,13 +15,13 @@ describe('The Package-class:', function () {
         .then((pkg) => {
           expect(pkg.packageJson).to.deep.equal(require('./fixtures/project1/package.json'))
           expect(pkg.stats.files.map((f) => f.file).sort()).to.deep.equal([
-            'test/fixtures/project1/',
-            'test/fixtures/project1/dir/',
-            'test/fixtures/project1/dir/file2.txt',
-            'test/fixtures/project1/file3.txt',
-            'test/fixtures/project1/file5000.txt',
-            'test/fixtures/project1/file6.txt',
-            'test/fixtures/project1/package.json'
+            f('test/fixtures/project1/'),
+            f('test/fixtures/project1/dir/'),
+            f('test/fixtures/project1/dir/file2.txt'),
+            f('test/fixtures/project1/file3.txt'),
+            f('test/fixtures/project1/file5000.txt'),
+            f('test/fixtures/project1/file6.txt'),
+            f('test/fixtures/project1/package.json')
           ])
         })
     })
@@ -30,13 +31,13 @@ describe('The Package-class:', function () {
         .then((pkg) => {
           expect(pkg.packageJson).to.deep.equal(require('./fixtures/project3/package.json'))
           expect(pkg.stats.files.map((f) => f.file).sort()).to.deep.equal([
-            'test/fixtures/project3/',
-            'test/fixtures/project3/LICENSE.md',
-            'test/fixtures/project3/README',
-            'test/fixtures/project3/dir/',
-            'test/fixtures/project3/dir/file2.txt',
-            'test/fixtures/project3/file3.txt',
-            'test/fixtures/project3/package.json'
+            f('test/fixtures/project3/'),
+            f('test/fixtures/project3/LICENSE.md'),
+            f('test/fixtures/project3/README'),
+            f('test/fixtures/project3/dir/'),
+            f('test/fixtures/project3/dir/file2.txt'),
+            f('test/fixtures/project3/file3.txt'),
+            f('test/fixtures/project3/package.json')
           ])
         })
     })
@@ -176,4 +177,11 @@ describe('The Package-class:', function () {
  */
 function dummy (_id, _location, _requiredBy, stats) {
   return new Package({_id, _location, _requiredBy}, stats || new PackageStats(`/${_id}`, []))
+}
+
+/**
+ * Normalizer file paths
+ */
+function f (file) {
+  return file.replace(/\//g, path.sep)
 }

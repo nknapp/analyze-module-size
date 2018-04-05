@@ -12,17 +12,20 @@ const {analyze} = require('../src/index')
 require('chalk').enabled = false
 
 describe('The index-function (module main function):', function () {
+  // Output varies depending on the fs blocksize
+  const blksize = fs.statSync(__filename).blksize || 4096
+
   it('should return an archy-tree for the dependencies of the referenced package directory', function () {
     return analyze('test/fixtures/moduleWithDeps')
       .then((result) => {
-        expect(result).to.equal(fs.readFileSync('test/fixtures/moduleWithDeps.txt', 'utf-8'))
+        expect(result).to.equal(fs.readFileSync(`test/fixtures/moduleWithDeps-blk${blksize}-${process.platform}.txt`, 'utf-8'))
       })
   })
 
   it('should cut the display at a specific depth if specified', function () {
     return analyze('test/fixtures/moduleWithDeps', {depth: 1})
       .then((result) => {
-        expect(result).to.equal(fs.readFileSync('test/fixtures/moduleWithDeps-depth1.txt', 'utf-8'))
+        expect(result).to.equal(fs.readFileSync(`test/fixtures/moduleWithDeps-depth1-blk${blksize}-${process.platform}.txt`, 'utf-8'))
       })
   })
 })
