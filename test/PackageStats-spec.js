@@ -5,6 +5,7 @@ chai.use(require('dirty-chai'))
 const expect = chai.expect
 const {PackageStats} = require('../src/PackageStats')
 const fs = require('fs')
+const path = require('path')
 
 describe('The PackageStats-class', function () {
   it('should load the package-stats from a directory', function () {
@@ -109,7 +110,7 @@ function sortedNameAndSize (files) {
  * @return {string} file - size
  */
 function f (file) {
-  return `${file} - ${fs.statSync(file).size}`
+  return `${file.replace(/\//g, path.sep)} - ${fs.statSync(file).size}`
 }
 
 /**
@@ -117,7 +118,10 @@ function f (file) {
  * @param {...string} files a list of filenames
  */
 function sumSize (...files) {
-  return files.reduce((sum, file) => sum + fs.statSync(file).size, 0)
+  return files.reduce((sum, file) => {
+    const size = fs.statSync(file).size
+    return sum + size
+  }, 0)
 }
 
 /**
@@ -127,6 +131,7 @@ function sumSize (...files) {
 function sumBlocksize (...files) {
   return files.reduce((sum, file) => {
     const stat = fs.statSync(file)
-    return sum + Math.ceil(stat.size / stat.blksize) * stat.blksize
+    const blksize = stat.blksize || 4096 // On Windows, the blksize is NaN (#5). In order to get a result at all, we assume 4kb (default for NTFs) for NaN and 0.
+    return sum + Math.ceil(stat.size / blksize) * blksize
   }, 0)
 }
