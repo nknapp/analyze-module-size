@@ -28,4 +28,22 @@ describe('The index-function (module main function):', function () {
         expect(result).to.equal(fs.readFileSync(`test/fixtures/moduleWithDeps-depth1-blk${blksize}-${process.platform}.txt`, 'utf-8'))
       })
   })
+
+  it('should handle cyclic dependencies gracefully', function () {
+    return analyze('test/fixtures/moduleWithCyclicDeps')
+      .then((result) => {
+        // The size numbers in this test are irrelevant. In order to keep the test compatible on multiple platforms,
+        // all sizes are set to 42k
+        expect(k24(result)).to.equal(k24(fs.readFileSync(`test/fixtures/moduleWithCyclicDeps.txt`, 'utf-8')))
+      })
+  })
 })
+
+/**
+ * Replace all kilobyte-numbers by 42k for comparibility if the numbers should not be part of the test
+ * @param string
+ * @return {*}
+ */
+function k24 (string) {
+  return string.replace(/\d+k/g, '42k')
+}
