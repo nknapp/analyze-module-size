@@ -1,0 +1,42 @@
+# How it works
+
+`{{packageJson.name}}` collects all modules from the `node_modules` directory, the `node_modules` directory of 
+each of those modules and the `node_modules` directory in that modules, and so on.
+
+When all packages have been collected, it reads the package.json of each module and uses the `_location`-property
+and the `_requiredBy`-property to recreate the complete dependency tree.
+
+* `_location` contains the location of the module in the directory tree. A module in `node_modules/packageA/node_modules/packageB`
+  has the location `/packageA/packageB`
+* `_requiredBy` contains a list of module that are dependent on the current module. For each such module, it contains
+  the value of the `_location`-property.
+
+Once the packages is connected, the stats for each package are computed:
+
+* The number of dependencies is computed transitively across the tree.
+* The total kilobytes (1024 bytes) is computed, include all dependencies.
+  The computation of file sizes assumes that only whole blocks are used, even by small files. The `blksize`-property
+  of the [fs.Stats-object]() is used as block size. If this value is missing (e.g. on Windows), a size of 4096 is 
+  used.
+
+## Caveats
+
+In some cases, the dependencies in the `node_modules`-directory are tempered with. For example, {{npm 'lerna'}}
+combines dependencies of multiple packages in the `node_modules`-directory of the root-project and removes 
+obsolete dependencies from the tree. This can lead to cycles in the dependency tree which are displayed in
+the output like this:
+
+{{include 'test/fixtures/moduleWithCyclicDeps.txt'}}
+
+Furthermore, this and the use of optional dependencies can lead to a situation where a package is `_requiredBy` 
+an existing dependency (i.e. a dependent package) but does not exist anymore in the tree. For those delete packages,
+a dummy package is displayed in a separate tree.
+
+{{include 'test/fixtures/moduleWithMissingDependent.txt'}}
+
+In  this example, a module `dep2@1.0.0` was found. The `_requireBy`-property shows that `dep2`
+is part of the tree, because it is a dependency of a module that should be in `node_modules/dep3`, 
+which could not be found.
+
+   
+

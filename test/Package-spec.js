@@ -3,6 +3,13 @@
 const chai = require('chai')
 chai.use(require('dirty-chai'))
 const expect = chai.expect
+
+function check (explanation) {
+  return {
+    expect: (value) => expect(value, explanation)
+  }
+}
+
 const {Package} = require('../src/Package')
 const {PackageStats} = require('../src/PackageStats')
 const deep = require('deep-aplus')(Promise)
@@ -82,10 +89,35 @@ describe('The Package-class:', function () {
       expect(pkg2.dependents).to.deep.equal([pkg1])
     })
 
-    it('should throw an exception if a dependency could not be found', function () {
-      expect(function () {
-        dummy('one@1.0.0', '/one', ['/']).connect(new Map([['/c', new Package()]]))
-      }).to.throw(Error, 'Could not find "/" in ["/c"]')
+    it('should create dummy packages for missing dependents', function () {
+      const pkg1 = dummy('one@1.0.0', '/one', ['/three'])
+      const map = Package.indexByLocation([pkg1])
+      pkg1.connect(map)
+
+      // Checking dummy package
+      let dummyPackage = map.get('/three')
+      expect(dummyPackage.packageJson._id).to.equal('/three')
+      expect(dummyPackage.location()).to.equal('/three')
+      expect(dummyPackage.dependents).to.deep.equal([map.get('#MISSING')])
+      expect(dummyPackage.dependencies).to.deep.equal([pkg1])
+    })
+
+    it('should wire packages with one missing and one existing dependent to both dummy and existing package', function () {
+      const pkg1 = dummy('one@1.0.0', '/one', ['/three', '/'])
+      const root = dummy('root@1.0.0', '/', [])
+      const map = Package.indexByLocation([pkg1, root])
+      pkg1.connect(map)
+
+      // Checking dummy package
+      let dummyPackage = map.get('/three')
+      expect(dummyPackage.packageJson._id).to.equal('/three')
+      expect(dummyPackage.location()).to.equal('/three')
+      expect(dummyPackage.dependents).to.deep.equal([map.get('#MISSING')])
+      expect(dummyPackage.dependencies).to.deep.equal([pkg1])
+
+      // Checking dependency wirings
+      expect(root.dependencies).to.deep.equal([pkg1])
+      expect(pkg1.dependents).to.have.members([root, dummyPackage])
     })
 
     it('should ignore missing _requiredBy fields', function () {
@@ -104,12 +136,38 @@ describe('The Package-class:', function () {
       const base = dummy('base@1.0.0', undefined, undefined)
       const pkg1 = dummy('one@1.0.0', '/one', ['/'])
       const pkg2 = dummy('two@1.0.0', '/two', ['/one'])
-      Package.connectAll(base, [pkg1, pkg2])
+      const result = Package.connectAll(base, [pkg1, pkg2])
 
+      expect(result).to.deep.equal({
+        prod: [pkg1],
+        dev: [],
+        missing: [],
+        manual: []
+      })
       expect(base.dependencies).to.deep.equal([pkg1])
       expect(pkg1.dependents).to.deep.equal([base])
       expect(pkg1.dependencies).to.deep.equal([pkg2])
       expect(pkg2.dependents).to.deep.equal([pkg1])
+    })
+
+    it('should connect missing dependents to "missing"', function () {
+      const base = dummy('base@1.0.0', undefined, undefined)
+      const pkg1 = dummy('one@1.0.0', '/one', ['/three', '/'])
+      const pkg2 = dummy('two@1.0.0', '/two', ['/three'])
+      // /three is missing
+
+      const result = Package.connectAll(base, [pkg1, pkg2])
+
+      check('the base package').expect(result.prod).to.deep.equal(base.dependencies)
+      check('number of missing packages').expect(result.missing.length).to.equal(1)
+      const dummyPkg3 = result.missing[0]
+      check('id of missing package').expect(dummyPkg3.packageJson._id).to.equal('/three')
+      check('location of missing package').expect(dummyPkg3.location()).to.equal('/three')
+      check('dependencies of missing package /three').expect(dummyPkg3.dependencies).to.have.members([pkg1, pkg2])
+
+      check('dependencies of the base package').expect(base.dependencies).to.deep.equal([pkg1])
+      check('dependents of pkg1').expect(pkg1.dependents).to.have.members([base, dummyPkg3])
+      check('dependents of pkg2').expect(pkg2.dependents).to.deep.equal([dummyPkg3])
     })
   })
 

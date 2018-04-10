@@ -21,17 +21,26 @@ const {NullProgressHandler} = require('./progress')
 function analyze (cwd, options = {}) {
   return DependencyTree.loadFrom(path.join(cwd, 'package.json'), options.progress || new NullProgressHandler())
     .then(function (tree) {
-      return archy({
+      let result = archy({
         label: `size: ${tree.rootPackage.stats.totalBlockSize() / 1024}k... with-dependencies: ${tree.rootPackage.totalStats().totalBlockSize() / 1024}k`,
         nodes: toArchy(tree.prod, options.depth, [])
       })
+      if (tree.missing.length > 0) {
+        result += '\n' + archy({
+          label: `missing packages, that are referenced as dependent of an existing dependency`,
+          nodes: toArchy(tree.missing, options.depth, [])
+        })
+      }
+      return result
     })
 }
 
 /**
+ * Create an archy-compatible object-structure of the dependency tree.
  *
  * @param pkgs
  * @param {number=} depth
+ * @param {string[]} cycleChecker list of "_location"s on the current path down the dependency tree.
  */
 function toArchy (pkgs, depth, cycleChecker) {
   if (depth <= 0) return []

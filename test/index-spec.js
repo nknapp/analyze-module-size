@@ -37,6 +37,15 @@ describe('The index-function (module main function):', function () {
         expect(k24(result)).to.equal(k24(fs.readFileSync(`test/fixtures/moduleWithCyclicDeps.txt`, 'utf-8')))
       })
   })
+
+  it('should handle missing dependents gracefully', function () {
+    return analyze('test/fixtures/moduleWithMissingDependent')
+      .then((result) => {
+        // The size numbers in this test are irrelevant. In order to keep the test compatible on multiple platforms,
+        // all sizes are set to 42k
+        expect(k24(result)).to.equal(k24(fs.readFileSync(`test/fixtures/moduleWithMissingDependent.txt`, 'utf-8')))
+      })
+  })
 })
 
 /**

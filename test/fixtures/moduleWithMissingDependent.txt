@@ -1,0 +1,7 @@
+size: 42k... with-dependencies: 42k
+└── dep1@1.0.0, 42k, 0 deps
+
+missing packages, that are referenced as dependent of an existing dependency
+└─┬ /dep3, 42k, 2 deps
+  └─┬ dep2@1.0.0, 42k, 1 deps
+    └── dep1@1.0.0, 42k, 0 deps

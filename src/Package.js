@@ -33,15 +33,12 @@ class Package {
    * Create references to dependencies and dependents
    * contained in the packages-map.
    *
-   * @param {object<Package>} packages packages as returned by Package#indexByLocation
+   * @param {object<Package>} packageIndex packages as returned by Package#indexByLocation
    */
-  connect (packages) {
+  connect (packageIndex) {
     if (this.packageJson._requiredBy) {
       this.packageJson._requiredBy.forEach((key) => {
-        const dependent = packages.get(key)
-        if (!dependent) {
-          throw new Error(`Could not find "${key}" in ${JSON.stringify(Array.from(packages.keys()))}`)
-        }
+        const dependent = packageIndex.get(key) || Package.dummyForMissingDependent(key, packageIndex)
         this.dependents.push(dependent)
         dependent.dependencies.push(this)
       })
@@ -96,26 +93,46 @@ class Package {
    */
   static indexByLocation (packages) {
     const map = new Map(packages.map(p => [p.location(), p]))
-    map.set('#USER', new Package())
-    map.set('#DEV:/', new Package())
+    map.set('#USER', new Package({id: '#USER'}))
+    map.set('#DEV:/', new Package({id: '#DEV:/'}))
+    map.set('#MISSING', new Package({id: "#MISSING'"}))
     return map
   }
 
   /**
-   *
-   * @param {...(Package|Package[])} packages
+   * Create a dummy package for a missing dependent.
+   * @param location the location of the dummy package (i.e. the entry in the _requiredBy-tag of the dependency
+   *   of this package)
+   * @param packageIndex the map of all packages (location -> package)
+   */
+  static dummyForMissingDependent (location, packageIndex) {
+    const dummy = new Package({_id: location, _location: location}, new PackageStats(null, []))
+    const sparePackage = packageIndex.get('#MISSING')
+    packageIndex.set(location, dummy)
+    dummy.dependents.push(sparePackage)
+    sparePackage.dependencies.push(dummy)
+    return dummy
+  }
+
+  /**
+   * Connect a like of packages. The list may contain packages and arrays of packages. It will be flattened
+   * @param {(Package|Package[])[]} packages the list of packages or list of packages
+   * @return {object} an object containing dependencies of the following kind:
+   *   prod ("dependencies"), dev ("devDependencies"), manual ("manually installed by the user"),
+   *   missing ("implicitly found as dependent of another package")
    */
   static connectAll (...packages) {
     debug('Connect all')
     // flatten
     const flatPackages = Array.prototype.concat.apply([], packages)
-    const index = Package.indexByLocation(flatPackages)
-    flatPackages.forEach((pkg) => pkg.connect(index))
+    const packageIndex = Package.indexByLocation(flatPackages)
+    flatPackages.forEach((pkg) => pkg.connect(packageIndex))
     debug('Done connect all')
     return {
-      prod: index.get('/'),
-      dev: index.get('#DEV:/'),
-      manual: index.get('#USER')
+      prod: packageIndex.get('/').dependencies,
+      dev: packageIndex.get('#DEV:/').dependencies,
+      manual: packageIndex.get('#USER').dependencies,
+      missing: packageIndex.get('#MISSING').dependencies
     }
   }
 }
