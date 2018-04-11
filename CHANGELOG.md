@@ -1,6 +1,13 @@
 # Release notes for `analyze-module-size`
 
 <a name="current-release"></a>
+# Version 1.4.0 (Wed, 11 Apr 2018 22:02:39 GMT)
+
+* [fb3b72a](https://github.com/nknapp/analyze-module-size/commit/fb3b72a) chore: configure travis to run on node 6,8 and 9 (not 7 anymore) - Nils Knappmeier
+* [d6b2d6f](https://github.com/nknapp/analyze-module-size/commit/d6b2d6f) feat: support for missing modules with existing dependls Knappmeier
+* [414ada7](https://github.com/nknapp/analyze-module-size/commit/414ada7) fix: Handle dependency cycles gracefully - Nils Knappmeier
+* [fb80e13](https://github.com/nknapp/analyze-module-size/commit/fb80e13) fix: Reserve more space for the dependency count in the progress bar - Nils Knappmeier
+
 # Version 1.3.5 (Thu, 05 Apr 2018 19:54:26 GMT)
 
 * [282d1fa](https://github.com/nknapp/analyze-module-size/commit/282d1fa) fix: handle NaN-blocksize on windows file-system (#5) - Nils Knappmeier

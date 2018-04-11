@@ -145,16 +145,19 @@ a dummy package is displayed in a separate tree.
 
 ```txt
 size: 42k... with-dependencies: 42k
+└── dep1@1.0.0, 42k, 0 deps
 
 missing packages, that are referenced as dependent of an existing dependency
-└─┬ /dep3, 42k, 1 deps
-  └── dep2@1.0.0, 42k, 0 deps
+└─┬ /dep3, 42k, 2 deps
+  └─┬ dep2@1.0.0, 42k, 1 deps
+    └── dep1@1.0.0, 42k, 0 deps
 
 ```
 
 
-In  this example, a module `node_modules/dep2` was found. The `_requireBy`-property shows that `node_modules/dep2`
-is part of the tree, because it is a dependency of `node_modules/dep3`, which could not be found.
+In  this example, a module `dep2@1.0.0` was found. The `_requireBy`-property shows that `dep2`
+is part of the tree, because it is a dependency of a module that should be in `node_modules/dep3`, 
+which could not be found.
 
    
 
