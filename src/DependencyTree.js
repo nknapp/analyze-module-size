@@ -8,11 +8,12 @@ const {NullProgressHandler} = require('./progress')
 class DependencyTree {
   /**
    * @param {Package} prod package containing the production dependencies (and the files in the repository itself)
-   * @param {Package} dev package containing the dev-dependencies
-   * @param {Package} manual package containing the manually installed dependencies
+   * @param {Package[]} dev packages in the devDependencies
+   * @param {Package[]} manual manually installed packages (non-dependencies)
+   * @param {Package[]} missing packages whose dependent could not be found
    * @param {Package[]} all all packages in a node_modules directory, in a flat list.
    */
-  constructor (rootPackage, prod, dev, manual, all) {
+  constructor (rootPackage, prod, dev, manual, missing, all) {
     this.rootPackage = rootPackage
     /**
      * @type {Package[]}
@@ -26,6 +27,10 @@ class DependencyTree {
      * @type {Package[]}
      */
     this.manual = manual
+    /**
+     * @type {Package[]}
+     */
+    this.missing = missing
     /**
      * @type {Package[]}
      */
@@ -60,13 +65,14 @@ class DependencyTree {
       })
     return deep({rootPackage, dependencies}).then(function ({rootPackage, dependencies}) {
       progressHandler.connectAll()
-      var {prod, dev, manual} = Package.connectAll(rootPackage, dependencies)
+      var {prod, dev, manual, missing} = Package.connectAll(rootPackage, dependencies)
       progressHandler.done()
       return new DependencyTree(
         rootPackage,
-        prod.dependencies,
-        dev.dependencies,
-        manual.dependencies,
+        prod,
+        dev,
+        manual,
+        missing,
         dependencies
       )
     })

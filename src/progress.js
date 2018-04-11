@@ -4,7 +4,7 @@ const ProgressBar = require('progress')
 class ProgressHandler {
   constructor (stream) {
     this.stream = stream
-    this.foundDepsProgress = new ProgressBar('dependencies found: :current', {total: 1000, stream: this.stream})
+    this.foundDepsProgress = new ProgressBar('dependencies found: :current', {total: 1000000, stream: this.stream})
     this.loadedDepsProgress = null
   }
 

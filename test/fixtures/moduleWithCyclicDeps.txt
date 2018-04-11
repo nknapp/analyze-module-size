@@ -1,0 +1,5 @@
+size: 42k... with-dependencies: 42k
+└─┬ dep1@1.0.0, 42k, 3 deps
+  └─┬ dep1a@1.0.0, 42k, 3 deps
+    └─┬ dep2@1.0.0, 42k, 3 deps
+      └── dep1@1.0.0 (cycle detected)

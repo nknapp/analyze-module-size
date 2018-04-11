@@ -14,7 +14,7 @@ class PackageStats {
   /**
    * Create a new PackageStats object
    * @param {string} directory path to the package-json files
-   * @param {{file: string, stat: fs.Stats}} files files and stats in this package
+   * @param {{file: string, stat: fs.Stats}[]} files files and stats in this package
    */
   constructor (directory, files) {
     /**
@@ -22,7 +22,7 @@ class PackageStats {
      */
     this.directory = directory
     /**
-     * @type {{file: string, stat: fs.Stats}}
+     * @type {{file: string, stat: fs.Stats}[]}
      */
     this.files = files
   }
