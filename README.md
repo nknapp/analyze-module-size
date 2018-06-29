@@ -124,7 +124,7 @@ Once the packages is connected, the stats for each package are computed:
 
 ## Caveats
 
-In some cases, the dependencies in the `node_modules`-directory are tempered with. For example, [lerna](https://npmjs.com/package/lerna)
+In some cases, the dependencies in the `node_modules`-directory are tampered with. For example, [lerna](https://npmjs.com/package/lerna)
 combines dependencies of multiple packages in the `node_modules`-directory of the root-project and removes 
 obsolete dependencies from the tree. This can lead to cycles in the dependency tree which are displayed in
 the output like this:
